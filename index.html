@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Google AI Studio App</title>
+    <script>
+      // Protection against scripts trying to overwrite the read-only fetch getter
+      (function() {
+        const _originalFetch = window.fetch;
+        try {
+          Object.defineProperty(window, 'fetch', {
+            get: function() { return _originalFetch; },
+            set: function() { 
+              console.warn('Nexus: Blocked attempt to overwrite window.fetch');
+            },
+            configurable: true // Try to make it configurable so we can set it
+          });
+        } catch (e) {
+          console.log('Nexus: fetch is already protected by platform');
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+
